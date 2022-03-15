@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 //Array for the board
 char square[10] = {'0','1','2','3','4','5','6','7','8','9'};
 int checkwin();
@@ -7,7 +6,7 @@ void board();
 //Program Main Method
 int main()
 {
-	int player = 1,i,choice; //To start with Player 1
+    int player = 1,i,choice; //To start with Player 1
 
     char mark;
     do
@@ -15,8 +14,8 @@ int main()
         board();
         player=(player%2)?1:2; //To select the player
 
-        cout << "Player " << player << ", enter a number:  ";
-        cin >> choice;
+        std::cout << "Player " << player << ", enter a number:  ";
+        std::cin >> choice;
 
         mark=(player == 1) ? 'X' : 'O'; //To assign the mark to the player
 
@@ -49,25 +48,26 @@ int main()
             square[9] = mark;
         else //To check if the mark is already there
         {
-            cout<<"Invalid move "; 
+            std::cout<<"Invalid move "; 
 
             player--;
-            cin.ignore();
-            cin.get();
+            std::cin.ignore();
+            std::cin.get();
         }
         i=checkwin();
 
         player++;
-    }while(i==-1);
+    }
+    while(i==-1);
     board();
     if(i==1) //To check and tell the result
 
-        cout<<"==>\aPlayer "<<--player<<" win ";
+        std::cout<<"==>\aPlayer "<<--player<<" win ";
     else
-        cout<<"==>\aGame draw";
+        std::cout<<"==>\aGame draw";
 
-    cin.ignore();
-    cin.get();
+    std::cin.ignore();
+    std::cin.get();
     return 0;
 }
 
@@ -110,23 +110,23 @@ int checkwin()
 //Function to render the board everytime
 void board()
 {
-    cout << "\n\n\tTic Tac Toe\n\n";
+    std::cout << "\n\n\tTic Tac Toe\n\n";
 
-    cout << "Player 1 (X)  -  Player 2 (O)" << endl << endl;
-    cout << endl;
+    std::cout << "Player 1 (X)  -  Player 2 (O)" << std::endl << std::endl;
+    std::cout << std::endl;
 
-    cout << "     |     |     " << endl;
-    cout << "  " << square[1] << "  |  " << square[2] << "  |  " << square[3] << endl;
+    std::cout << "     |     |     " << std::endl;
+    std::cout << "  " << square[1] << "  |  " << square[2] << "  |  " << square[3] << std::endl;
 
-    cout << "_____|_____|_____" << endl;
-    cout << "     |     |     " << endl;
+    std::cout << "_____|_____|_____" << std::endl;
+    std::cout << "     |     |     " << std::endl;
 
-    cout << "  " << square[4] << "  |  " << square[5] << "  |  " << square[6] << endl;
+    std::cout << "  " << square[4] << "  |  " << square[5] << "  |  " << square[6] << std::endl;
 
-    cout << "_____|_____|_____" << endl;
-    cout << "     |     |     " << endl;
+    std::cout << "_____|_____|_____" << std::endl;
+    std::cout << "     |     |     " << std::endl;
 
-    cout << "  " << square[7] << "  |  " << square[8] << "  |  " << square[9] << endl;
+    std::cout << "  " << square[7] << "  |  " << square[8] << "  |  " << square[9] << std::endl;
 
-    cout << "     |     |     " << endl << endl;
+    std::cout << "     |     |     " << std::endl << std::endl;
 }
