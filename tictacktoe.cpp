@@ -1,132 +1,103 @@
 #include <iostream>
+#include <stdlib.h>
 //Array for the board
-char square[10] = {'0','1','2','3','4','5','6','7','8','9'};
-int checkwin();
-void board();
-//Program Main Method
-int main()
+char board[3][3] = {{'1','2','3'},{'4','5','6'},{'7','8','9'}};
+//Variable Declaration
+int choice;
+int row,column;
+char turn = 'X'; //Declaring the starting character
+bool draw = false;
+
+void display_board() //Function to render the board 
 {
-    int player = 1,i,choice; //To start with Player 1
-
-    char mark;
-    do
-    {
-        board();
-        player=(player%2)?1:2; //To select the player
-
-        std::cout << "Player " << player << ", enter a number:  ";
-        std::cin >> choice;
-
-        mark=(player == 1) ? 'X' : 'O'; //To assign the mark to the player
-
-        if (choice == 1 && square[1] == '1') 
-
-            square[1] = mark; //To assign mark to the position selected
-        else if (choice == 2 && square[2] == '2')
-
-            square[2] = mark; //To assign mark to the position selected
-        else if (choice == 3 && square[3] == '3')
-
-            square[3] = mark; //To assign mark to the position selected
-        else if (choice == 4 && square[4] == '4')
-
-            square[4] = mark; //To assign mark to the position selected
-        else if (choice == 5 && square[5] == '5')
-
-            square[5] = mark; //To assign mark to the position selected
-        else if (choice == 6 && square[6] == '6')
-
-            square[6] = mark; //To assign mark to the position selected
-        else if (choice == 7 && square[7] == '7')
-
-            square[7] = mark; //To assign mark to the position selected
-        else if (choice == 8 && square[8] == '8')
-
-            square[8] = mark; //To assign mark to the position selected
-        else if (choice == 9 && square[9] == '9')
-
-            square[9] = mark;
-        else //To check if the mark is already there
-        {
-            std::cout<<"Invalid move "; 
-
-            player--;
-            std::cin.ignore();
-            std::cin.get();
-        }
-        i=checkwin();
-
-        player++;
-    }
-    while(i==-1);
-    board();
-    if(i==1) //To check and tell the result
-
-        std::cout<<"==>\aPlayer "<<--player<<" win ";
-    else
-        std::cout<<"==>\aGame draw";
-
-    std::cin.ignore();
-    std::cin.get();
-    return 0;
-}
-
-//Function to get the game status e.g. 1 for game over with result, -1 for game in progress and 0 for game over with no result
-int checkwin()
-{
-    if (square[1] == square[2] && square[2] == square[3]) //checking the win for Simple Rows
-
-        return 1;
-    else if (square[4] == square[5] && square[5] == square[6]) //checking the win for Simple Rows
-
-        return 1;
-    else if (square[7] == square[8] && square[8] == square[9]) //checking the win for Simple Rows
-
-        return 1;
-    else if (square[1] == square[4] && square[4] == square[7]) //checking the win for Simple Column
-
-        return 1;
-    else if (square[2] == square[5] && square[5] == square[8]) //checking the win for Simple Column
-
-        return 1;
-    else if (square[3] == square[6] && square[6] == square[9]) //checking the win for Simple Column
-
-        return 1;
-    else if (square[1] == square[5] && square[5] == square[9]) //checking the win for diagonal
-
-        return 1;
-    else if (square[3] == square[5] && square[5] == square[7]) //checking the win for diagonal
-
-        return 1;
-    else if (square[1] != '1' && square[2] != '2' && square[3] != '3' 
-                    && square[4] != '4' && square[5] != '5' && square[6] != '6' 
-                  && square[7] != '7' && square[8] != '8' && square[9] != '9') //Checking if game is already a draw
-
-        return 0;
-    else
-        return -1; //Checking the game is in continue mode or not
-}
-
-//Function to render the board everytime
-void board()
-{
-    std::cout << "\n\n\tTic Tac Toe\n\n";
-
     std::cout << "Player 1 (X)  -  Player 2 (O)" << std::endl << std::endl;
     std::cout << std::endl;
 
     std::cout << "     |     |     " << std::endl;
-    std::cout << "  " << square[1] << "  |  " << square[2] << "  |  " << square[3] << std::endl;
+    std::cout << "  "<<board[0][0]<<"  |  "<<board[0][1]<<"  |  "<<board[0][2]<< std::endl;
 
     std::cout << "_____|_____|_____" << std::endl;
     std::cout << "     |     |     " << std::endl;
 
-    std::cout << "  " << square[4] << "  |  " << square[5] << "  |  " << square[6] << std::endl;
+    std::cout << "  "<<board[1][0]<<"  |  "<<board[1][1]<<"  |  "<<board[1][2]<< std::endl;
 
     std::cout << "_____|_____|_____" << std::endl;
     std::cout << "     |     |     " << std::endl;
 
-    std::cout << "  " << square[7] << "  |  " << square[8] << "  |  " << square[9] << std::endl;
+    std::cout << "  "<<board[2][0]<<"  |  "<<board[2][1]<<"  |  "<<board[2][2]<< std::endl;
 
     std::cout << "     |     |     " << std::endl << std::endl;
+}
+//Function to get the player input and update the board
+void player_turn(){
+    if(turn == 'X'){
+        std::cout<<"Player 1, enter a number:  "; //To select the player
+    }
+    else if(turn == 'O'){
+        std::cout<<"Player 2, enter a number:  "; //To select the player
+    }
+    std::cin>> choice;
+    //Switch case to get which row and column will be update
+    switch(choice){
+        case 1: row=0; column=0; break;
+        case 2: row=0; column=1; break;
+        case 3: row=0; column=2; break;
+        case 4: row=1; column=0; break;
+        case 5: row=1; column=1; break;
+        case 6: row=1; column=2; break;
+        case 7: row=2; column=0; break;
+        case 8: row=2; column=1; break;
+        case 9: row=2; column=2; break;
+        default:
+            std::cout<<"Invalid Move";
+    }
+    if(turn == 'X' && board[row][column] != 'X' && board[row][column] != 'O'){ //To check if the mark is already there
+        board[row][column] = 'X';
+        turn = 'O';
+    }else if(turn == 'O' && board[row][column] != 'X' && board[row][column] != 'O'){ //To check if the mark is already there
+        board[row][column] = 'O';
+        turn = 'X';
+    }else {
+        std::cout<<"Invalid Move ";
+        player_turn();
+    }
+    display_board();
+}
+
+//Function to get the game status
+
+bool gameover(){
+    //Checking the win for simple rows and simple columns
+    for(int i=0; i<3; i++)
+    if(board[i][0] == board[i][1] && board[i][0] == board[i][2] || board[0][i] == board[1][i] && board[0][i] == board[2][i])
+    return false;
+    //Checking the win for both the diagonals
+    if(board[0][0] == board[1][1] && board[0][0] == board[2][2] || board[0][2] == board[1][1] && board[0][2] == board[2][0])
+    return false;
+    //Checking the game is in continue mode or not
+    for(int i=0; i<3; i++)
+    for(int j=0; j<3; j++)
+    if(board[i][j] != 'X' && board[i][j] != 'O')
+    return true;
+    //Checking the if game already draw
+    draw = true;
+    return false;
+}
+//Program Main Method
+int main()
+{
+    std::cout<<"\n\n\tTic Tac Toe\n\n";
+    while(gameover()){
+        display_board();
+        player_turn();
+        gameover();
+    }
+    if(turn == 'X' && draw == false){
+        std::cout<<"==>\aPlayer 2 Win "; //Declaring winner
+    }
+    else if(turn == 'O' && draw == false){
+        std::cout<<"==>\aPlayer 1 Win "; //Declaring winner
+    }
+    else
+    std::cout<<"==>\aGame Draw"; //Declaring game draw
 }
